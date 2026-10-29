@@ -1,0 +1,10 @@
+# All AmneziaWG bot cron jobs. install.sh deploys these.
+# Scripts source /etc/awgbot/config.env themselves for env vars.
+BASH_ENV=/etc/awgbot/config.env
+*/5 * * * * root /usr/local/bin/awg-alerts.sh >> /var/log/awg-alerts.log 2>&1
+*/5 * * * * root /usr/local/bin/awg-healthcheck.sh >> /var/log/awg-healthcheck.log 2>&1
+*/10 * * * * root set -a; . /etc/awgbot/config.env; set +a; /usr/local/bin/awg-traffic.py >> /var/log/awg-traffic.log 2>&1
+0 4 * * * root set -a; . /etc/awgbot/config.env; set +a; /usr/local/bin/awg-cleanup.py >> /var/log/awg-cleanup.log 2>&1
+0 5 * * 0 root /usr/local/bin/awg-update-rulist.py >> /var/log/awg-rulist.log 2>&1
+0 5 * * 0 root /usr/local/bin/awg-update-mobile-rulist.py >> /var/log/awg-rulist.log 2>&1
+0 9 */2 * * root /usr/local/bin/awg-rkn-notify.sh >> /var/log/awg-rkn.log 2>&1

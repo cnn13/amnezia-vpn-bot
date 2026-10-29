@@ -1,0 +1,18 @@
+# never commit secrets or state
+config.env
+/etc/awgbot/
+peer_privs.json
+pending.json
+bans.json
+user_peers.json
+ru_bypass_allowed.txt
+ru_bypass_mobile.txt
+AdGuardHome.yaml
+*.conf
+*.key
+*.pyc
+__pycache__/
+venv/
+*.log
+backup/
+restored*/

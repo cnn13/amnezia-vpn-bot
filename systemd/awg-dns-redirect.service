@@ -1,0 +1,11 @@
+[Unit]
+Description=Add DNS DNAT in amnezia-awg2 container
+After=docker.service awg0-alias.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c 'sleep 12 && docker exec amnezia-awg2 iptables -t nat -C PREROUTING -i awg0 -p udp --dport 53 -j DNAT --to-destination 10.8.1.254:53 2>/dev/null || docker exec amnezia-awg2 iptables -t nat -A PREROUTING -i awg0 -p udp --dport 53 -j DNAT --to-destination 10.8.1.254:53; docker exec amnezia-awg2 iptables -t nat -C PREROUTING -i awg0 -p tcp --dport 53 -j DNAT --to-destination 10.8.1.254:53 2>/dev/null || docker exec amnezia-awg2 iptables -t nat -A PREROUTING -i awg0 -p tcp --dport 53 -j DNAT --to-destination 10.8.1.254:53'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

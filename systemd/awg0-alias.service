@@ -1,0 +1,12 @@
+[Unit]
+Description=Add alias IP to awg0 for AdGuard
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c 'sleep 10 && docker exec amnezia-awg2 ip addr add 10.8.1.254/32 dev awg0 2>/dev/null || true'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
